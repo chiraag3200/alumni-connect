@@ -45,6 +45,12 @@ function SearchBar({ placeholder }) {
       .then((data) => setData(data));
   }, []);
   console.log(data);
+
+  const renderPerson = (value) => {
+    return (
+      <div className="flex">{`${value.first_name} ${value.last_name}`}</div>
+    );
+  };
   return (
     <div
       className="flex flex-col pt-5 h-full justify-center items-center"
@@ -65,7 +71,10 @@ function SearchBar({ placeholder }) {
       >
         <input className="bg-white border-0" style={{ width: "100%" }} />
       </div>
-      {data.length > 0 && data.map((value) => {})}
+      {data != null &&
+        data.map((value) => {
+          renderPerson(value);
+        })}
     </div>
   );
 }
