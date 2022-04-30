@@ -65,25 +65,26 @@
 //
 // export default App;
 
-
-
-
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import NavbarComp from './components/NavbarComp';
-import SearchEmployees from './components/SearchEmployees';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import NavbarComp from "./components/NavbarComp";
+import SearchEmployees from "./components/SearchEmployees";
 import SearchBar from "./components/SearchBar";
 import CompanyData from "./Data.json";
-import { HashRouter as Router, Route, NavLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from "react-router-dom";
 
 function App() {
   return (
     <Router>
-    <div className="App">
-    <NavbarComp />
-    </div>
-    <Route exact path="/" component={NavbarComp} />
-    <Route path="/referral" component={SearchBar} placeholder="Enter Company Name..." data={CompanyData}/>
+      <Routes>
+        <Route exact path="/referral" element={<SearchBar />} />
+        <Route exact path="/" element={<NavbarComp />}></Route>
+      </Routes>
     </Router>
   );
 }
