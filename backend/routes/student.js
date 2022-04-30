@@ -132,16 +132,22 @@ router.route('/requestReferral').post((req, res) => {
 
 
 
-router.route('/requests').get(auth, (req, res) => {
+router.route('/requests').post((req, res) => {
 
-  const student_id = req.user.student_id;
+  // const student_id = req.user.student_id;
+  const student_id = "12345"
+  const is_approved = req.body.is_approved;
 
-  Request.find({ student_id: student_id}, (err, requests) => {
+  console.log(is_approved)
+  console.log(typeof(is_approved))
+
+  Request.find({ student_id: student_id, is_approved:is_approved}, (err, requests) => {
     if (err) {
       return res.status(400).send({
         message: err
       });
     }
+    console.log(requests)
     res.status(200).json(requests);
   });
 });

@@ -70,6 +70,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComp from "./components/NavbarComp";
 import SearchEmployees from "./components/SearchEmployees";
 import SearchBar from "./components/SearchBar";
+import Home from "./components/Home";
 import CompanyData from "./Data.json";
 import {
   BrowserRouter as Router,
@@ -83,6 +84,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/referral" element={<SearchBar />} />
+        <Route exact path="/home" element={<Home />} />
         <Route exact path="/" element={<NavbarComp />}></Route>
       </Routes>
     </Router>
