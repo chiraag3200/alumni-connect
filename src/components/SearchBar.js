@@ -46,14 +46,33 @@ function SearchBar({ placeholder }) {
   }, []);
   console.log(data);
 
+  const sendReuest = (id) => {
+    fetch("http://localhost:5000/alumni/requestMeet", {
+      method: "POST",
+      body: { id },
+    });
+    alert("Request Send");
+  };
+
   const renderPerson = (value) => {
     return (
-      <div className="flex">{`${value.first_name} ${value.last_name}`}</div>
+      <div
+        className="flex  mt-4 w-1/2 px-3 py-2 bg-white flex-col border-2 border-slate-600 rounded-2xl shadow-md shadow-neutral-200"
+        onClick={() => {
+          sendReuest(value._id);
+        }}
+      >
+        <div className="items-center flex">
+          <div className="h-16 w-16 border-2 border-black shadow-md shadow-gray-900 rounded-full" />
+          <span className="ml-4">{value.first_name}</span>
+          <span className="ml-1">{value.last_name}</span>
+        </div>
+      </div>
     );
   };
   return (
     <div
-      className="flex flex-col pt-5 h-full justify-center items-center"
+      className="flex flex-col pt-5 h-full justify-start items-center"
       style={{
         width: "100%",
         height: "100vh",
@@ -62,18 +81,19 @@ function SearchBar({ placeholder }) {
       }}
     >
       <div
+        className="py-3 bg-white border-0"
         style={{
-          width: "80%",
+          width: "50%",
           border: "2px solid black",
           borderRadius: "12px",
           overflow: "hidden",
         }}
       >
-        <input className="bg-white border-0" style={{ width: "100%" }} />
+        <input style={{ width: "100%" }} />
       </div>
       {data != null &&
         data.map((value) => {
-          renderPerson(value);
+          return renderPerson(value);
         })}
     </div>
   );
