@@ -9,7 +9,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
 `;
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
