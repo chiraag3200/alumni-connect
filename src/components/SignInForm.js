@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
   FacebookLoginButton,
-  InstagramLoginButton
+  InstagramLoginButton,
 } from "react-social-login-buttons";
-
+import "./Login.css";
 class SignInForm extends Component {
   constructor() {
     super();
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +24,7 @@ class SignInForm extends Component {
     let name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 

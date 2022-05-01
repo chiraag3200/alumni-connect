@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { HashRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import SignUpForm from "./SignUpForm";
 import SignInForm from "./SignInForm";
-
+import SignUpForm from "./SignUpForm";
 
 import "./Login.css";
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentState: "signin",
+    };
+  }
   render() {
     return (
       <div basename="/react-auth-ui/">
@@ -14,21 +19,26 @@ class Login extends Component {
           <div className="appAside" />
           <div className="appForm">
             <div className="pageSwitcher">
-              <NavLink
-                to="/sign-in"
+              <div
+                onClick={() => {
+                  this.setState({ currentState: "signup" });
+                  this.props.history.replace("/signup");
+                }}
                 activeClassName="pageSwitcherItem-active"
-                className="pageSwitcherItem"
+                className="pageSwitcherItem hover:bg-white"
               >
                 Sign In
-              </NavLink>
-              <NavLink
-                exact
-                to="/"
+              </div>
+              <div
+                onClick={() => {
+                  this.setState({ currentState: "signin" });
+                  this.props.history.replace("/signin");
+                }}
                 activeClassName="pageSwitcherItem-active"
-                className="pageSwitcherItem"
+                className="pageSwitcherItem hover:bg-white"
               >
                 Sign Up
-              </NavLink>
+              </div>
             </div>
 
             <div className="formTitle">
@@ -49,10 +59,12 @@ class Login extends Component {
                 Sign Up
               </NavLink>
             </div>
-            <Routes>
-            <Route exact path="/" element={<SignUpForm/>} />
-            <Route path="/sign-in" element={<SignInForm/>} />
-            </Routes>
+
+            {this.state.currentState === "signin" ? (
+              <SignInForm />
+            ) : (
+              <SignUpForm />
+            )}
           </div>
         </div>
       </div>
