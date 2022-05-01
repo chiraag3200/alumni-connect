@@ -39,11 +39,11 @@ const alumniSchema = new Schema({
   },
   skills: {
     type : Array ,
-    "default" : []
+    "default" : ["c++", "python"]
   },
   employers: {
     type : Array ,
-    "default" : []
+    "default" : ["amazon", "google", "uber"]
   },
   token: { 
     type: String

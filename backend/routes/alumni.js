@@ -110,7 +110,7 @@ router.route('/searchEmployees/:company').get( (req, res) => {
 
 router.route('/searchEmployees').get( (req, res) => {
 
-  Alumni.find((err, requests) => {
+  Alumni.find({},(err, requests) => {
     if (err) {
       return res.status(400).send({
         message: err
