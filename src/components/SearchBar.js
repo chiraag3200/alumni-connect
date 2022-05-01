@@ -27,16 +27,11 @@ function SearchBar({ placeholder }) {
     }
   };
 
-  const clearInput = () => {
-    setFilteredData([]);
-    setWordEntered("");
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      console.log("enter press here! ");
-      return <div>{SearchEmployees}</div>;
-    }
+  const onInputChange = (event) => {
+    setWordEntered(event.target.value);
+    fetch(`http://localhost:5000/alumni/searchEmployees/${wordEntered}`)
+      .then((data) => data.json())
+      .then((data) => setData(data));
   };
   const [data, setData] = useState(null);
   useEffect(() => {
@@ -89,7 +84,11 @@ function SearchBar({ placeholder }) {
           overflow: "hidden",
         }}
       >
-        <input style={{ width: "100%" }} />
+        <input
+          value={wordEntered}
+          onChange={onInputChange}
+          style={{ width: "100%" }}
+        />
       </div>
       {data != null &&
         data.map((value) => {
