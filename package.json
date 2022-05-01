@@ -16,6 +16,7 @@
     "react-native": "^0.68.1",
     "react-native-web": "^0.17.7",
     "react-scripts": "5.0.0",
+    "react-social-login-buttons": "^3.6.0",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },

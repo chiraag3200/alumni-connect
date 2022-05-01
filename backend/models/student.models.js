@@ -43,7 +43,7 @@ const studentSchema = new Schema({
   },
   college_start_year: {
     type: Number,
-    required: true,
+    required: false,
     trim: true,
     validate: {
       validator : Number.isInteger,
@@ -52,7 +52,7 @@ const studentSchema = new Schema({
   },
   college_end_year: {
     type: Number,
-    required: true,
+    required: false,
     trim: true,
     validate: {
       validator : Number.isInteger,

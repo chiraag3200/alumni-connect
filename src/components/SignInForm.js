@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import {
+  FacebookLoginButton,
+  InstagramLoginButton
+} from "react-social-login-buttons";
 
 class SignInForm extends Component {
   constructor() {
@@ -70,6 +74,16 @@ class SignInForm extends Component {
             <Link to="/" className="formFieldLink">
               Create an account
             </Link>
+          </div>
+
+          <div className="socialMediaButtons">
+            <div className="facebookButton">
+              <FacebookLoginButton onClick={() => alert("Hello")} />
+            </div>
+
+            <div className="instagramButton">
+              <InstagramLoginButton onClick={() => alert("Hello")} />
+            </div>
           </div>
         </form>
       </div>

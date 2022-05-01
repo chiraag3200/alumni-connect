@@ -8,8 +8,10 @@ class SignUpForm extends Component {
     this.state = {
       email: "",
       password: "",
-      name: "",
-      hasAgreed: false
+      first_name: "",
+      last_name: "",
+      is_student: false,
+      is_alumni: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +32,34 @@ class SignUpForm extends Component {
     e.preventDefault();
 
     console.log("The form was submitted with the following data:");
-    console.log(this.state);
+    if (this.state.is_alumni === true){
+      fetch("http://localhost:5000/alumni/register", {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email, password: this.state.password })
+    }).then((response) => {
+      if (response.status === 200){
+        alert('Alumni added successfully!')
+      }
+      else{
+        alert('Alumni with this email already exists.')
+      }
+    })
+    }
+    else {
+      fetch("http://localhost:5000/student/register", {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email, password: this.state.password })
+    }).then((response) => {
+      if (response.status === 200){
+        alert('Student added successfully!')
+      }
+      else{
+        alert('Student with this email already exists.')
+      }
+    })
+    }
   }
 
   render() {
@@ -38,16 +67,30 @@ class SignUpForm extends Component {
       <div className="formCenter">
         <form onSubmit={this.handleSubmit} className="formFields">
           <div className="formField">
-            <label className="formFieldLabel" htmlFor="name">
-              Full Name
+            <label className="formFieldLabel" htmlFor="first_name">
+              First Name
             </label>
             <input
               type="text"
-              id="name"
+              id="first_name"
               className="formFieldInput"
-              placeholder="Enter your full name"
-              name="name"
-              value={this.state.name}
+              placeholder="Enter your first name"
+              name="first_name"
+              value={this.state.first_name}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="formField">
+            <label className="formFieldLabel" htmlFor="last_name">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="last_name"
+              className="formFieldInput"
+              placeholder="Enter your last name"
+              name="last_name"
+              value={this.state.last_name}
               onChange={this.handleChange}
             />
           </div>
@@ -67,7 +110,7 @@ class SignUpForm extends Component {
           </div>
           <div className="formField">
             <label className="formFieldLabel" htmlFor="email">
-              E-Mail Address
+              E-Mail 
             </label>
             <input
               type="email"
@@ -85,13 +128,27 @@ class SignUpForm extends Component {
               <input
                 className="formFieldCheckbox"
                 type="checkbox"
-                name="hasAgreed"
-                value={this.state.hasAgreed}
+                name="is_student"
+                value={this.state.is_student}
                 onChange={this.handleChange}
               />{" "}
-              I agree all statements in{" "}
+              SignUp as Student
               <a href="null" className="formFieldTermsLink">
-                terms of service
+              </a>
+            </label>
+          </div>
+
+          <div className="formField">
+            <label className="formFieldCheckboxLabel">
+              <input
+                className="formFieldCheckbox"
+                type="checkbox"
+                name="is_alumni"
+                value={this.state.is_alumni}
+                onChange={this.handleChange}
+              />{" "}
+              SignUp as Alumni
+              <a href="null" className="formFieldTermsLink">
               </a>
             </label>
           </div>
