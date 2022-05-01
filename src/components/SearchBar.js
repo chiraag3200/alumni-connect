@@ -33,20 +33,28 @@ function SearchBar({ placeholder }) {
       .then((data) => data.json())
       .then((data) => setData(data));
   };
+
   const [data, setData] = useState(null);
+
   useEffect(() => {
     fetch("http://localhost:5000/alumni/searchEmployees/amazon")
       .then((data) => data.json())
       .then((data) => setData(data));
   }, []);
-  console.log(data);
 
   const sendReuest = (id) => {
-    fetch("http://localhost:5000/alumni/requestMeet", {
-      method: "POST",
-      body: { id },
-    });
-    alert("Request Send");
+    fetch("http://localhost:5000/student/requestReferral", {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id, student_id: "12345" })
+    }).then((response) => {
+      if (response.status === 200){
+        alert('Request sent!')
+      }
+      else{
+        alert('A request already exists.')
+      }
+    })
   };
 
   const renderPerson = (value) => {

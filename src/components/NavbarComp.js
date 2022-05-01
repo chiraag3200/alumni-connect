@@ -16,6 +16,7 @@ import Referral from "./Referral";
 import Help from "./Help";
 
 const handleclick = (event) => {
+  console.log(event.target.value)
   fetch("http://localhost:5000/alumni/searchEmployees")
     .then((res) => res.json())
     .then(

@@ -69,11 +69,11 @@ router.route('/login').post((req, res) => {
 
 
 
-router.route('/requestMeet/:id').post(auth, (req, res) => {
+router.route('/requestMeet').post((req, res) => {
 
-  var student_id = req.user.student_id;
-  var alumni_id = req.params.id
-  const message = req.body.message;
+  var student_id = req.body.student_id;
+  var alumni_id = req.body.id
+  // const message = req.body.message;
 
   Request.findOne({ student_id: student_id, alumni_id:alumni_id, is_approved:false}, (err, request) => {
     if (request) {
@@ -81,13 +81,16 @@ router.route('/requestMeet/:id').post(auth, (req, res) => {
         message: "A request already exists."
       });
     }
+
     try {
-      const request = Request.create({
+      const request = new Request({
         student_id: student_id,
         alumni_id: alumni_id,
-        message: message,
+        // message: message,
       });
-      res.status(200).json('Request Sent');
+      request.save()
+      .then(() => res.json('Request sent!'))
+      .catch(err => res.status(400).json('Error: ' + err));
     }
     catch (err){
       res.status(400).send(err);
@@ -96,16 +99,55 @@ router.route('/requestMeet/:id').post(auth, (req, res) => {
 });
 
 
-router.route('/requests').get(auth, (req, res) => {
 
-  const student_id = req.user.student_id;
+router.route('/requestReferral').post((req, res) => {
 
-  Request.find({ student_id: student_id}, (err, requests) => {
+  var student_id = req.body.student_id;
+  var alumni_id = req.body.id
+  // const message = req.body.message;
+
+
+  Request.findOne({ student_id: student_id, alumni_id:alumni_id, is_approved:false}, (err, request) => {
+    if (request) {
+      return res.status(400).send({
+        message: "A request already exists."
+      });
+    }
+
+    try {
+      const request = new Request({
+        student_id: student_id,
+        alumni_id: alumni_id,
+        // message: message,
+      });
+      request.save()
+      .then(() => res.json('Request sent!'))
+      .catch(err => res.status(400).json('Error: ' + err));
+    }
+    catch (err){
+      res.status(400).send(err);
+    }
+  });
+});
+
+
+
+router.route('/requests').post((req, res) => {
+
+  // const student_id = req.user.student_id;
+  const student_id = "12345"
+  const is_approved = req.body.is_approved;
+
+  console.log(is_approved)
+  console.log(typeof(is_approved))
+
+  Request.find({ student_id: student_id, is_approved:is_approved}, (err, requests) => {
     if (err) {
       return res.status(400).send({
         message: err
       });
     }
+    console.log(requests)
     res.status(200).json(requests);
   });
 });
