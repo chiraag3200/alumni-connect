@@ -7,6 +7,11 @@ import {
   Button,
   Nav,
 } from "react-bootstrap";
+import {
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import Contact from "./Contact";
@@ -14,6 +19,15 @@ import Contact from "./Contact";
 import About from "./About";
 import Referral from "./Referral";
 import Help from "./Help";
+// import style from 'bootstrap/dist/css/bootstrap.css';
+
+
+
+const Badge = ({count})=>(
+  <div className="rounded-full" >
+    <Text>{count}</Text>
+  </div>
+);
 
 const pendingRequests = (event) => {
 
@@ -22,7 +36,11 @@ const pendingRequests = (event) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ is_approved: false })
     }).then((response) => {
-      console.log(response)
+      // render(){
+      //   return(
+      //     <Badge count={4}/>
+      //   )
+      // }
       }
     )
 };
@@ -38,6 +56,24 @@ const acceptedRequests = (event) => {
       }
     )
 };
+
+// const styles = StyleSheet.Create({
+//   circle:{
+//    width:36,
+//    height:36,
+//    borderRadius:18,
+//    backgroundColor:'red'
+//   },
+//   count:{color:'#FFF'}
+// })
+
+// const Badge = ({count})=>(
+//   <View style ={styles.cirlce}>
+//     <Text style={style.count}>{count}</Text>
+//   </View>
+// );
+
+
 
 const Column = styled.div`
   display: flex;
@@ -69,7 +105,7 @@ export default class Home extends Component {
         </div>
         <div>
           <Routes>
-            <Route path="/pendingRequests" element={<About />} />
+            <Route exact path="/pendingRequests" element={<About />} />
             <Route path="/acceptedRequests" element={<About />} />
           </Routes>
         </div>

@@ -71,6 +71,8 @@ import NavbarComp from "./components/NavbarComp";
 import SearchEmployees from "./components/SearchEmployees";
 import SearchBar from "./components/SearchBar";
 import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
 import CompanyData from "./Data.json";
 import {
   BrowserRouter as Router,
@@ -85,6 +87,8 @@ function App() {
       <Routes>
         <Route exact path="/referral" element={<SearchBar />} />
         <Route exact path="/home" element={<Home />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/" element={<NavbarComp />}></Route>
       </Routes>
     </Router>

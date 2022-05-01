@@ -13,23 +13,24 @@ function SearchBar({ placeholder }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
-  const handleFilter = (event) => {
-    const searchWord = event.target.value;
-    setWordEntered(searchWord);
-    const newFilter = data.filter((value) => {
-      return value.company.toLowerCase().includes(searchWord.toLowerCase());
-    });
+  // const handleFilter = (event) => {
+  //   const searchWord = event.target.value;
+  //   setWordEntered(searchWord);
+  //   const newFilter = data.filter((value) => {
+  //     return value.company.toLowerCase().includes(searchWord.toLowerCase());
+  //   });
 
-    if (searchWord === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-    }
-  };
+  //   if (searchWord === "") {
+  //     setFilteredData([]);
+  //   } else {
+  //     setFilteredData(newFilter);
+  //   }
+  // };
 
   const onInputChange = (event) => {
     setWordEntered(event.target.value);
-    fetch(`http://localhost:5000/alumni/searchEmployees/${wordEntered}`)
+    const word = event.target.value
+    fetch(`http://localhost:5000/alumni/searchEmployees/${word}`)
       .then((data) => data.json())
       .then((data) => setData(data));
   };
