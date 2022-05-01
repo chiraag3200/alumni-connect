@@ -74,7 +74,7 @@ import SearchBar from "./components/SearchBar";
 import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import SignIn from "./components/SignInForm";
+import SignInForm from "./components/SignInForm";
 import CompanyData from "./Data.json";
 import {
   BrowserRouter as Router,
@@ -91,7 +91,8 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<Contact />} />
-        <Route exact path="/sign-in" element={<SignIn />}></Route>
+        <Route exact path="/sign-in" element={<SignInForm />} />
+        <Route exact path="/dashboard" element={<NavbarComp />}></Route>
         <Route exact path="/" element={<Login />}></Route>
       </Routes>
     </Router>
