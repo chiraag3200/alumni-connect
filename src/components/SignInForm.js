@@ -48,6 +48,7 @@ class SignInForm extends Component {
         })
          .then((response) => {
           if(response.status===200){
+            localStorage.setItem('id', response.data["_id"])
             alert('success')
           }
           else if(response.status===201){
@@ -65,6 +66,7 @@ class SignInForm extends Component {
         })
          .then((response) => {
           if(response.status===200){
+            localStorage.setItem('id', response.data["_id"])
             alert('success')
           }
           else if(response.status===201){

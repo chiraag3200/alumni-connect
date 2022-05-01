@@ -159,12 +159,9 @@ router.route('/requestReferral').post((req, res) => {
 
 router.route('/requests').post((req, res) => {
 
-  // const student_id = req.user.student_id;
-  const student_id = "12345"
+  const student_id = req.body.id
   const is_approved = req.body.is_approved;
 
-  console.log(is_approved)
-  console.log(typeof(is_approved))
 
   Request.find({ student_id: student_id, is_approved:is_approved}, (err, requests) => {
     if (err) {
@@ -172,8 +169,7 @@ router.route('/requests').post((req, res) => {
         message: err
       });
     }
-    console.log(requests)
-    res.status(200).json(requests);
+    res.status(200).json(requests.length);
   });
 });
 

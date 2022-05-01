@@ -17,37 +17,6 @@ import Referral from "./Referral";
 import Help from "./Help";
 // import style from 'bootstrap/dist/css/bootstrap.css';
 
-const Badge = ({ count }) => (
-  <div className="rounded-full">
-    <Text>{count}</Text>
-  </div>
-);
-
-const acceptedRequests = (event) => {
-  fetch("http://localhost:5000/student/requests", {
-    method: "post",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ is_approved: true }),
-  }).then((response) => {
-    console.log(response.student_id);
-  });
-};
-
-// const styles = StyleSheet.Create({
-//   circle:{
-//    width:36,
-//    height:36,
-//    borderRadius:18,
-//    backgroundColor:'red'
-//   },
-//   count:{color:'#FFF'}
-// })
-
-// const Badge = ({count})=>(
-//   <View style ={styles.cirlce}>
-//     <Text style={style.count}>{count}</Text>
-//   </View>
-// );
 
 const Column = styled.div`
   display: flex;
@@ -58,20 +27,34 @@ export default class Home extends Component {
     super();
     this.state = {
       pendingRequests: 0,
-      approveRequest: 0,
+      acceptedRequests: 0,
     };
     this.pendingRequests = this.pendingRequests.bind(this);
+    this.acceptedRequests = this.acceptedRequests.bind(this);
   }
 
   pendingRequests(event) {
     fetch("http://localhost:5000/student/requests", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ is_approved: false }),
-    }).then((response) => {
+      body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: false }),
+    }).then((response) => response.json())
+    .then((response) => {
       this.setState({ pendingRequests: response });
     });
   }
+
+  acceptedRequests(event) {
+    fetch("http://localhost:5000/student/requests", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: true }),
+    }).then((response) => response.json())
+    .then((response) => {
+      this.setState({ acceptedRequests: response });
+    });
+  }
+
   render() {
     return (
       <Column>
@@ -90,7 +73,7 @@ export default class Home extends Component {
                     className="bg-white rounded-full absolute px-2"
                     style={{ right: "-20px", top: "-10px" }}
                   >
-                    26
+                    22
                   </span>
                   <Nav.Link
                     as={Link}
@@ -100,13 +83,21 @@ export default class Home extends Component {
                     Pending Requests
                   </Nav.Link>
                 </div>
-                <Nav.Link
-                  as={Link}
-                  onClick={acceptedRequests}
-                  to="/acceptedRequests"
-                >
-                  Accepted Requests
-                </Nav.Link>
+                <div className="relative mr-5">
+                  <span
+                    className="bg-white rounded-full absolute px-2"
+                    style={{ right: "-20px", top: "-10px" }}
+                  >
+                    20
+                  </span>
+                  <Nav.Link
+                    as={Link}
+                    onClick={this.acceptedRequests}
+                    to="/acceptedRequests"
+                  >
+                    Accepted Requests
+                  </Nav.Link>
+                </div>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
