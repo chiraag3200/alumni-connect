@@ -45,7 +45,7 @@ router.route('/login').post((req, res) => {
 
     Alumni.findOne({ email: email }, (err, alumni) => {
       if (!alumni) {
-        return response.status(400).send({
+        return res.status(201).send({
           message: "Any Alumni with this email does not exist."
         });
       }
@@ -54,10 +54,10 @@ router.route('/login').post((req, res) => {
           process.env.TOKEN_KEY,
         );
 
-        student.token = token;
-        res.status(200).json(alumni);
+        alumni.token = token;
+        return res.status(200).json({data:alumni, status:400});
       }
-      res.status(400).send("Invalid Credentials");
+      return res.status(204).send("Invalid Credentials");
     });
   }
   catch (err) {
@@ -76,7 +76,7 @@ router.route('/requests').get(auth, (req, res) => {
         message: err
       });
     }
-    res.status(200).json(requests);
+    return res.status(200).json(requests);
   });
 });
 

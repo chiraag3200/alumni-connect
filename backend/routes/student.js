@@ -38,16 +38,16 @@ router.route('/login').post((req, res) => {
     const {email, password} = req.body
 
     if (!email){
-      res.status(400).send("Email is required");
+      return res.status(400).send("Email is required");
     }
 
     if(!password){
-      res.status(400).send("Password is required");
+      return res.status(400).send("Password is required");
     }
 
     Student.findOne({ email: email }, (err, student) => {
       if (!student) {
-        return response.status(400).send({
+        return response.status(201).send({
           message: "Any student with this email does not exist."
         });
       }
@@ -57,9 +57,34 @@ router.route('/login').post((req, res) => {
         );
 
         student.token = token;
-        res.status(200).json(student);
+        return res.status(200).json(student);
       }
-      res.status(400).send("Invalid Credentials");
+      return res.status(204).send({
+          message: "Invalid credentials"
+        });
+    });
+  }
+  catch (err) {
+    console.log(err);
+  }
+})
+
+router.route('/usertype').post((req, res) => {
+  try{
+    const {email} = req.body
+
+    Student.findOne({ email: email }, (err, student) => {
+      if (student) {
+        console.log('yes')
+        return res.status(400).send({
+          message: "student."
+        });
+      }
+      else{
+        return res.status(200).send({
+          message: "alumni."
+        });
+      }
     });
   }
   catch (err) {

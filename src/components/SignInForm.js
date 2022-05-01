@@ -5,6 +5,9 @@ import {
   InstagramLoginButton,
 } from "react-social-login-buttons";
 import "./Login.css";
+import axios from "axios";
+
+
 class SignInForm extends Component {
   constructor() {
     super();
@@ -31,8 +34,49 @@ class SignInForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log("The form was submitted with the following data:");
-    console.log(this.state);
+
+    fetch("http://localhost:5000/student/usertype", {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: this.state.email})
+    })
+    .then((response) => {
+      if (response.status === 400){
+         axios.post("http://localhost:5000/student/login", {
+          email: this.state.email,
+          password: this.state.password
+        })
+         .then((response) => {
+          if(response.status===200){
+            alert('success')
+          }
+          else if(response.status===201){
+            alert("Any student with this email does not exist.")
+          }
+          else{
+            alert('Invalid Credentials')
+          }
+        })
+      }
+      else{
+         axios.post("http://localhost:5000/alumni/login", {
+          email: this.state.email,
+          password: this.state.password
+        })
+         .then((response) => {
+          if(response.status===200){
+            alert('success')
+          }
+          else if(response.status===201){
+            alert("Any alumni with this email does not exist.")
+          }
+          else{
+            alert('Invalid Credentials')
+          }
+        })
+      }
+      }
+    )
   }
 
   render() {
