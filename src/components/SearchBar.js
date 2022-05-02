@@ -47,7 +47,7 @@ function SearchBar({ placeholder }) {
     fetch("http://localhost:5000/student/requestReferral", {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id, student_id: "12345" })
+      body: JSON.stringify({ id: id, student_id: localStorage.getItem('id') })
     }).then((response) => {
       if (response.status === 200){
         alert('Request sent!')
