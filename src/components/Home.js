@@ -73,7 +73,7 @@ export default class Home extends Component {
                     className="bg-white rounded-full absolute px-2"
                     style={{ right: "-20px", top: "-10px" }}
                   >
-                    22
+                    {this.state.pendingRequests}
                   </span>
                   <Nav.Link
                     as={Link}
@@ -88,7 +88,7 @@ export default class Home extends Component {
                     className="bg-white rounded-full absolute px-2"
                     style={{ right: "-20px", top: "-10px" }}
                   >
-                    20
+                    {this.state.acceptedRequests}
                   </span>
                   <Nav.Link
                     as={Link}
