@@ -48,7 +48,6 @@ class SignInForm extends Component {
          .then((response) => {
           if(response.status===200){
             localStorage.setItem('id', response.data["_id"])
-            
           }
           else if(response.status===201){
             alert("Any student with this email does not exist.")
@@ -116,9 +115,7 @@ class SignInForm extends Component {
           
 
           <div className="formField">
-          <Link to="/dashboard" >
             <button className="formFieldButton">Sign In</button>{" "}
-            </Link>
             <Link to="/" className="formFieldLink">
               Create an account
             </Link>
