@@ -102,6 +102,29 @@ router.route('/usertype').post((req, res) => {
 })
 
 
+router.route('/type').post((req, res) => {
+  try{
+    const {id} = req.body
+
+    Student.findOne({ _id: id }, (err, student) => {
+      if (student) {
+        return res.status(400).send({
+          message: "student."
+        });
+      }
+      else{
+        return res.status(200).send({
+          message: "alumni."
+        });
+      }
+    });
+  }
+  catch (err) {
+    console.log(err);
+  }
+})
+
+
 
 router.route('/requestMeet').post((req, res) => {
 
