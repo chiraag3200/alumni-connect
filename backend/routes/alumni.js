@@ -121,4 +121,13 @@ router.route('/searchEmployees').get( (req, res) => {
 });
 
 
+router.route('/details/:id').get((req, res) => {
+
+  const id = req.params.id
+  Alumni.find({_id:id})
+    .then(alumni => res.json(alumni))
+    .catch(err => res.status(400).json('Error: ' + err));
+
+});
+
 module.exports = router;

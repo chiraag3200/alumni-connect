@@ -143,60 +143,11 @@ router.route('/requestReferral').post((req, res) => {
 
   Request.findOne({ student_id: student_id, alumni_id:alumni_id, is_approved:false}, (err, request) => {
     if (request) {
-      // return res.status(400).send({
-      //   message: "A request already exists."
-      // });
+      return res.status(400).send({
+        message: "A request already exists."
+      });
     }
-
-    // var request_by;
-    // var request_to;
-
-  //   Student.findOne({ id: student_id}, (err, request) => {
-  //   if (request) {
-  //     request_by = request.first_name + ' ' + request.last_name
-  //     console.log(request_by)
-  //     return res.status(400).send({
-  //       message: "success"
-  //     });
-  //   }
-  // })
-
-  //   Alumni.findOne({id:alumni_id}, (err, request) => {
-  //     request_to = request.first_name + ' ' + request.last_name
-  //     console.log(request_to)
-  //   if (request) {
-  //     return res.status(400).send({
-  //       message: "success"
-  //     });
-  //   }
-  // })
-
     try {
-
-            var request_by;
-            var request_to;
-
-          Student.findOne({ id: student_id}, (err, request) => {
-    if (request) {
-      request_by = request.first_name + ' ' + request.last_name
-      // console.log(request_by)
-      return res.status(400).send({
-        message: "success"
-      });
-    }
-  })
-
-           Alumni.findOne({id:alumni_id}, (err, request) => {
-      request_to = request.first_name + ' ' + request.last_name
-      // console.log(request_to)
-    if (request) {
-      return res.status(400).send({
-        message: "success"
-      });
-    }
-  })
-      console.log(request_to)
-      console.log(request_by)
 
       const request = new Request({
         student_id: student_id,

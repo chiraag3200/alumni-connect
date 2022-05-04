@@ -24,6 +24,14 @@ const Column = styled.div`
   flex-direction: column;
 `;
 export default class Home extends Component {
+
+
+
+    componentDidMount() {
+        document.body.style.backgroundColor = "#6b5b95";
+    }
+
+
   constructor() {
     super();
     this.state = {
@@ -40,7 +48,7 @@ export default class Home extends Component {
     fetch("http://localhost:5000/student/requests", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: "626f5fdef98b3a826067600a", is_approved: false }),
+      body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: false }),
     }).then((response) => response.json())
     .then((response) => {
       console.log(response)
