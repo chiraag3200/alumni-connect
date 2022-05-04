@@ -15,6 +15,7 @@ import Contact from "./Contact";
 import About from "./About";
 import Referral from "./Referral";
 import Help from "./Help";
+import PendingRequest from "./PendingRequest";
 // import style from 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -31,16 +32,19 @@ export default class Home extends Component {
     };
     this.pendingRequests = this.pendingRequests.bind(this);
     this.acceptedRequests = this.acceptedRequests.bind(this);
+    this.pendingRequests()
+    this.acceptedRequests()
   }
 
   pendingRequests(event) {
     fetch("http://localhost:5000/student/requests", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: false }),
+      body: JSON.stringify({ id: "626f5fdef98b3a826067600a", is_approved: false }),
     }).then((response) => response.json())
     .then((response) => {
-      this.setState({ pendingRequests: response });
+      console.log(response)
+      this.setState({ pendingRequests: response.length });
     });
   }
 
@@ -51,7 +55,7 @@ export default class Home extends Component {
       body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: true }),
     }).then((response) => response.json())
     .then((response) => {
-      this.setState({ acceptedRequests: response });
+      this.setState({ acceptedRequests: response.length});
     });
   }
 
@@ -103,10 +107,7 @@ export default class Home extends Component {
           </Navbar>
         </div>
         <div>
-          <Routes>
-            <Route exact path="/pendingRequests" element={<About />} />
-            <Route path="/acceptedRequests" element={<About />} />
-          </Routes>
+          
         </div>
       </Column>
     );

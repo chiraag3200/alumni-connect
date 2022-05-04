@@ -6,8 +6,7 @@ import {
 } from "react-social-login-buttons";
 import "./Login.css";
 import axios from "axios";
-
-
+import history from "../History";
 class SignInForm extends Component {
   constructor() {
     super();
@@ -49,7 +48,7 @@ class SignInForm extends Component {
          .then((response) => {
           if(response.status===200){
             localStorage.setItem('id', response.data["_id"])
-            alert('success')
+            
           }
           else if(response.status===201){
             alert("Any student with this email does not exist.")
@@ -114,9 +113,12 @@ class SignInForm extends Component {
               onChange={this.handleChange}
             />
           </div>
+          
 
           <div className="formField">
+          <Link to="/dashboard" >
             <button className="formFieldButton">Sign In</button>{" "}
+            </Link>
             <Link to="/" className="formFieldLink">
               Create an account
             </Link>

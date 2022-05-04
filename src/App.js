@@ -76,16 +76,18 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import SignInForm from "./components/SignInForm";
 import CompanyData from "./Data.json";
+import history from "./History";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   NavLink,
 } from "react-router-dom";
+import PendingRequest from "./components/PendingRequest";
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Routes>
         <Route exact path="/referral" element={<SearchBar />} />
         <Route exact path="/home" element={<Home />} />
@@ -93,6 +95,10 @@ function App() {
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/sign-in" element={<SignInForm />} />
         <Route exact path="/dashboard" element={<NavbarComp />}></Route>
+        
+            <Route exact path="/pendingRequests" element={<PendingRequest />} />
+            <Route path="/acceptedRequests" element={<About />} />
+        
         <Route exact path="/" element={<Login />}></Route>
       </Routes>
     </Router>

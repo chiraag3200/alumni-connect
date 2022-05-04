@@ -15,7 +15,6 @@ router.route('/').get((req, res) => {
 router.route('/details/:id').get((req, res) => {
 
   const id = req.params.id
-
   Student.find({_id:id})
     .then(students => res.json(students))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -228,7 +227,7 @@ router.route('/requests').post((req, res) => {
         message: err
       });
     }
-    res.status(200).json(requests.length);
+    return res.status(200).json(requests);
   });
 });
 

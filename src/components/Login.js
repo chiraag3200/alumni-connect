@@ -60,7 +60,7 @@ class Login extends Component {
               </NavLink>
             </div>
 
-            {this.state.currentState === "signin" ? (
+            {this.state.currentState != "signin" ? (
               <SignInForm />
             ) : (
               <SignUpForm />
