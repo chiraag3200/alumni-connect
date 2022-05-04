@@ -61,7 +61,7 @@ function SearchBar({ placeholder }) {
   const renderPerson = (value) => {
     return (
       <div
-        className="flex  mt-4 w-1/2 px-3 py-2 bg-white flex-col border-2 border-slate-600 rounded-2xl shadow-md shadow-neutral-200 "
+        className="flex  mt-4 w-1/2 px-3 py-2 bg-white flex-col border-2 border-slate-600 rounded-2xl shadow-md shadow-neutral-200"
         onClick={() => {
           sendReuest(value._id);
         }}

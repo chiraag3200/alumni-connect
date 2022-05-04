@@ -55,7 +55,7 @@ router.route('/login').post((req, res) => {
         );
 
         alumni.token = token;
-        return res.status(200).json({data:alumni, status:400});
+        return res.status(200).json({data:alumni, status:200});
       }
       return res.status(204).send("Invalid Credentials");
     });
@@ -66,11 +66,13 @@ router.route('/login').post((req, res) => {
 })
 
 
-router.route('/requests').get(auth, (req, res) => {
+router.route('/requests').post((req, res) => {
 
-  const alumni_id = req.user.alumni_id;
+  const alumni_id = req.body.id
+  const is_approved = req.body.is_approved;
 
-  Request.find({ alumni_id: alumni_id}, (err, requests) => {
+
+  Request.find({ alumni_id: alumni_id, is_approved:is_approved}, (err, requests) => {
     if (err) {
       return res.status(400).send({
         message: err
@@ -93,6 +95,27 @@ router.route('/acceptRequest/:id').post((req, res) => {
     res.status(400).send(err)
   }
 });
+
+
+
+router.route('/acceptReferral').post((req, res) => {
+
+  var student_id = req.body.id;
+  var alumni_id = req.body.alumni_id
+
+  Request.findOne({ "student_id": student_id, "alumni_id":alumni_id, "is_approved":false}, (err,response) => {
+    console.log(response)
+    try{
+          response.is_approved = true
+          response.save()
+          res.status(200).json('Request accepted');
+    }
+    catch(err){
+      res.status(400).json('Error');
+    }
+  })
+})
+
 
 router.route('/searchEmployees/:company').get( (req, res) => {
 

@@ -27,7 +27,7 @@ export default class Home extends Component {
 
 
 
-    componentDidMount() {
+  componentDidMount() {
         document.body.style.backgroundColor = "#6b5b95";
     }
 
@@ -37,11 +37,14 @@ export default class Home extends Component {
     this.state = {
       pendingRequests: 0,
       acceptedRequests: 0,
+      updates: 0
     };
     this.pendingRequests = this.pendingRequests.bind(this);
-    this.acceptedRequests = this.acceptedRequests.bind(this);
+    this.pendingRequests = this.pendingRequests.bind(this);
+    this.updates = this.updates.bind(this);
     this.pendingRequests()
     this.acceptedRequests()
+    this.updates()
   }
 
   pendingRequests(event) {
@@ -57,13 +60,26 @@ export default class Home extends Component {
   }
 
   acceptedRequests(event) {
+    fetch("http://localhost:5000/alumni/requests", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: false }),
+    }).then((response) => response.json())
+    .then((response) => {
+      console.log(response.length)
+      this.setState({ acceptedRequests: response.length});
+    });
+  }
+
+  updates(event) {
     fetch("http://localhost:5000/student/requests", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: localStorage.getItem('id'), is_approved: true }),
     }).then((response) => response.json())
     .then((response) => {
-      this.setState({ acceptedRequests: response.length});
+      console.log(response)
+      this.setState({ updates: response.length });
     });
   }
 
@@ -107,7 +123,22 @@ export default class Home extends Component {
                     onClick={this.acceptedRequests}
                     to="/acceptedRequests"
                   >
-                    Accepted Requests
+                    Accept Requests
+                  </Nav.Link>
+                </div>
+                <div className="relative mr-5">
+                  <span
+                    className="bg-white rounded-full absolute px-2"
+                    style={{ right: "-20px", top: "-10px" }}
+                  >
+                    {this.state.updates}
+                  </span>
+                  <Nav.Link
+                    as={Link}
+                    onClick={this.updates}
+                    to="/updates"
+                  >
+                    Updates
                   </Nav.Link>
                 </div>
               </Nav>

@@ -48,6 +48,7 @@ class SignInForm extends Component {
          .then((response) => {
           if(response.status===200){
             localStorage.setItem('id', response.data["_id"])
+            alert('Sign In Successful')
           }
           else if(response.status===201){
             alert("Any student with this email does not exist.")
@@ -63,9 +64,10 @@ class SignInForm extends Component {
           password: this.state.password
         })
          .then((response) => {
+          console.log(response.status)
           if(response.status===200){
-            localStorage.setItem('id', response.data["_id"])
-            alert('success')
+            localStorage.setItem('id', response.data.data["_id"])
+            alert('Sign In Successful')
           }
           else if(response.status===201){
             alert("Any alumni with this email does not exist.")
