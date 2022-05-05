@@ -29,7 +29,8 @@ function SearchBar({ placeholder }) {
 
   const onInputChange = (event) => {
     setWordEntered(event.target.value);
-    const word = event.target.value
+
+    const word = event.target.value;
     fetch(`http://localhost:5000/alumni/searchEmployees/${word}`)
       .then((data) => data.json())
       .then((data) => setData(data));
@@ -45,17 +46,16 @@ function SearchBar({ placeholder }) {
 
   const sendReuest = (id) => {
     fetch("http://localhost:5000/student/requestReferral", {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id, student_id: localStorage.getItem('id') })
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, student_id: "12345" }),
     }).then((response) => {
-      if (response.status === 200){
-        alert('Request sent!')
+      if (response.status === 200) {
+        alert("Request sent!");
+      } else {
+        alert("A request already exists.");
       }
-      else{
-        alert('A request already exists.')
-      }
-    })
+    });
   };
 
   const renderPerson = (value) => {
@@ -67,7 +67,10 @@ function SearchBar({ placeholder }) {
         }}
       >
         <div className="items-center flex">
-          <div className="h-16 w-16 border-2 border-black shadow-md shadow-gray-900 rounded-full" />
+          <img
+            src="https://d2tgh1fvbc3wmo.cloudfront.net/ic_user.png/2022/5/2/2022-05-02T14:08:38.832266-ic_user.png"
+            className="h-16 w-16 border-2 border-black shadow-md shadow-gray-900 rounded-full"
+          />
           <span className="ml-4">{value.first_name}</span>
           <span className="ml-1">{value.last_name}</span>
         </div>
@@ -97,7 +100,6 @@ function SearchBar({ placeholder }) {
           value={wordEntered}
           onChange={onInputChange}
           style={{ width: "100%" }}
-          // placeholder="enter company name"
         />
       </div>
       {data != null &&
