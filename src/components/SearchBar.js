@@ -62,7 +62,7 @@ function SearchBar({ placeholder }) {
     return (
       <div className="flex  mt-4 w-1/2 px-3 py-2 bg-white flex-col border-2 border-slate-600 rounded-2xl shadow-md shadow-neutral-200">
         <div className="items-center flex flex-col">
-          <div className="flex">
+          <div className="flex self-start">
             <img
               src="https://d2tgh1fvbc3wmo.cloudfront.net/ic_user.png/2022/5/2/2022-05-02T14:08:38.832266-ic_user.png"
               className="h-16 w-16 border-2 border-black shadow-md shadow-gray-900 rounded-full"
@@ -71,7 +71,7 @@ function SearchBar({ placeholder }) {
             <span className="ml-1">{value.last_name}</span>
           </div>
           <button
-            className="self-end"
+            className="self-end border-2 border-purple-800"
             onClick={() => {
               sendReuest(value._id);
             }}
