@@ -42,7 +42,7 @@ const sendReuest = (id) => {
         alert('Request accepted!')
       }
       else{
-        alert('Some error occured')
+        alert('Request Already Accepted')
       }
     })
   };

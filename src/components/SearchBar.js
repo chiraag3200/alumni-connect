@@ -48,7 +48,7 @@ function SearchBar({ placeholder }) {
     fetch("http://localhost:5000/student/requestReferral", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: id, student_id: "12345" }),
+      body: JSON.stringify({ id: id, student_id: localStorage.getItem('id') }),
     }).then((response) => {
       if (response.status === 200) {
         alert("Request sent!");
@@ -60,7 +60,7 @@ function SearchBar({ placeholder }) {
 
   const renderPerson = (value) => {
     return (
-      <div className="flex  mt-4 w-1/2 px-3 py-2 bg-white flex-col border-2 border-slate-600 rounded-2xl shadow-md shadow-neutral-200">
+      <div className="flex  mt-2 w-1/2 px-3 py-2 bg-white flex-col border-2 border-slate-100 rounded-2xl shadow-md shadow-neutral-200">
         <div className="items-center flex flex-col">
           <div className="flex self-start">
             <img
@@ -71,12 +71,12 @@ function SearchBar({ placeholder }) {
             <span className="ml-1">{value.last_name}</span>
           </div>
           <button
-            className="self-end border-2 border-purple-800"
+            className="self-end border-5 border-purple-800"
             onClick={() => {
               sendReuest(value._id);
             }}
           >
-            Add
+            Send Request
           </button>
         </div>
       </div>
@@ -87,7 +87,7 @@ function SearchBar({ placeholder }) {
       className="flex flex-col pt-5 h-full justify-start items-center"
       style={{
         width: "100%",
-        height: "100vh",
+        height: "150vh",
         paddingLeft: "10px",
         backgroundColor: "#6b5b95",
       }}

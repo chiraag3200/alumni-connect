@@ -35,6 +35,11 @@ const Column = styled.div`
   flex-direction: column;
 `;
 export default class NavbarComp extends Component {
+
+
+  componentDidMount() {
+        document.body.style.backgroundColor = "#6b5b95";
+    }
   render() {
     return (
       <Column>
