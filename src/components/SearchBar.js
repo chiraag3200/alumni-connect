@@ -66,13 +66,16 @@ function SearchBar({ placeholder }) {
           sendReuest(value._id);
         }}
       >
-        <div className="items-center flex">
-          <img
-            src="https://d2tgh1fvbc3wmo.cloudfront.net/ic_user.png/2022/5/2/2022-05-02T14:08:38.832266-ic_user.png"
-            className="h-16 w-16 border-2 border-black shadow-md shadow-gray-900 rounded-full"
-          />
-          <span className="ml-4">{value.first_name}</span>
-          <span className="ml-1">{value.last_name}</span>
+        <div className="items-center flex flex-col">
+          <div className="flex">
+            <img
+              src="https://d2tgh1fvbc3wmo.cloudfront.net/ic_user.png/2022/5/2/2022-05-02T14:08:38.832266-ic_user.png"
+              className="h-16 w-16 border-2 border-black shadow-md shadow-gray-900 rounded-full"
+            />
+            <span className="ml-4">{value.first_name}</span>
+            <span className="ml-1">{value.last_name}</span>
+          </div>
+          <button className="self-end">Add</button>
         </div>
       </div>
     );
